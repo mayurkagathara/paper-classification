@@ -18,7 +18,34 @@ from nltk.corpus import stopwords
 
 #%%
 import os
+import requests
+from requests.api import request
 curr_dir = os.getcwd()
+voting_model_file = curr_dir+'/voting_model.sav'
+title_vec_file = curr_dir+'/title_tfidf_vectorizer_6000f.sav'
+abstract_vec_file = curr_dir+'/abstract_tfidf_vectorizer_6000f.sav'
+
+if not os.path.isfile(voting_model_file):
+    url = r'https://github.com/mayurkagathara/paper-classification/blob/main/output_files/voting_model.sav?raw=true'
+    resp = requests.get(url)
+    with open(voting_model_file, 'wb') as fopen:
+        fopen.write(resp.content)
+
+if not os.path.isfile(title_vec_file):
+    url = r'https://github.com/mayurkagathara/paper-classification/blob/main/output_files/title_tfidf_vectorizer_6000f.sav?raw=true'
+    resp = requests.get(url)
+    with open(title_vec_file, 'wb') as fopen:
+        fopen.write(resp.content)
+
+if not os.path.isfile(abstract_vec_file):
+    url = r'https://github.com/mayurkagathara/paper-classification/blob/main/output_files/abstract_tfidf_vectorizer_6000f.sav?raw=true'
+    resp = requests.get(url)
+    with open(abstract_vec_file, 'wb') as fopen:
+        fopen.write(resp.content)
+
+
+with open(voting_model_file, 'rb') as fread:
+    clf_model_voting = pickle.load(fread)
 
 #%%
 # Global variables/objects
@@ -29,12 +56,11 @@ except:
     stop_words = stopwords.words('english')
 
 labels_ = ['Computer Science', 'Physics', 'Mathematics','Statistics', 'Quantitative Biology', 'Quantitative Finance']
-voting_model_file = curr_dir+'/data/voting_model.sav'
-with open(voting_model_file, 'rb') as fread:
-    clf_model_voting = pickle.load(fread)
 
-title_vectorizer = pickle.load(open(curr_dir+'/data/title_tfidf_vectorizer_6000f.sav','rb'))
-abstarct_vectorizer = pickle.load(open(curr_dir+'/data/abstract_tfidf_vectorizer_6000f.sav','rb'))
+
+
+title_vectorizer = pickle.load(open(title_vec_file,'rb'))
+abstarct_vectorizer = pickle.load(open(abstract_vec_file,'rb'))
 
 
 def clean_transform_title_abstract(dataframe, title_vectorizer, abstarct_vectorizer):
