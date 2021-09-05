@@ -12,11 +12,17 @@ import dill as pickle
 import pandas as pd
 import numpy as np
 import re
+import nltk
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 
 # Global variables/objects
-stop_words = stopwords.words('english')
+try:
+    stop_words = stopwords.words('english')
+except:
+    nltk.download('stopwords')
+    stop_words = stopwords.words('english')
+
 labels_ = ['Computer Science', 'Physics', 'Mathematics','Statistics', 'Quantitative Biology', 'Quantitative Finance']
 voting_model_file = '../output_files/voting_model.sav'
 title_vectorizer = pickle.load(open('../output_files/title_tfidf_vectorizer_6000f.sav','rb'))
