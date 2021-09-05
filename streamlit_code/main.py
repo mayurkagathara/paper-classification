@@ -20,6 +20,7 @@ st.set_page_config(page_title="whitepaper_classifier",
 # predict_single(raw_testing_data.loc[row,'TITLE'],raw_testing_data.loc[row,'ABSTRACT'])
 
 st.title('Whitepaper classifier')
+st.text('https://www.kaggle.com/vin1234/janatahack-independence-day-2020-ml-hackathon?select=train.csv')
 
 st.header('Single paper classification')
 st.subheader('Enter title and abstract to get topics')
