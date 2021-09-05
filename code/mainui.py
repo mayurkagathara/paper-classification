@@ -44,6 +44,16 @@ def convert_df(df):
     # Cache the conversion to prevent computation on every rerun
     return df.to_csv(index=False).encode('utf-8')
 
+@st.cache
+def get_predictions(raw_data_file, topics=False):
+    if topics:
+        predictions = predict_topics_list(raw_testing_file)
+    else:
+        predictions = predict_topics(raw_testing_file)
+    return predictions
+
+
+
 with st.form("form_csv_file"):
     input_file = st.file_uploader("upload comma separated file having title and abstract columns. Column names: TITLE, ABSTRACT", accept_multiple_files=False)
     get_topics_list = st.radio('Do you want to get topics list in the prediction file?', ('yes', 'no'))
@@ -54,10 +64,10 @@ with st.form("form_csv_file"):
             raw_testing_file = pd.read_csv(input_file)
             output_df = raw_testing_file.copy()
             if get_topics_list=='yes':
-                predictions = predict_topics_list(raw_testing_file)
+                predictions = get_predictions(raw_testing_file, topics=True)
                 labels_list = labels_ + ['topics']
             else:
-                predictions = predict_topics(raw_testing_file)
+                predictions = get_predictions(raw_testing_file, topics=False)
                 labels_list = labels_
                 
             output_df.loc[:,labels_list] = predictions
