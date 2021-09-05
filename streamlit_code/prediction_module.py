@@ -24,11 +24,12 @@ except:
     stop_words = stopwords.words('english')
 
 labels_ = ['Computer Science', 'Physics', 'Mathematics','Statistics', 'Quantitative Biology', 'Quantitative Finance']
-voting_model_file = 'voting_model.sav'
-title_vectorizer = pickle.load(open('title_tfidf_vectorizer_6000f.sav','rb'))
-abstarct_vectorizer = pickle.load(open('abstract_tfidf_vectorizer_6000f.sav','rb'))
+voting_model_file = './voting_model.sav'
 with open(voting_model_file, 'rb') as fread:
     clf_model_voting = pickle.load(fread)
+
+title_vectorizer = pickle.load(open('./title_tfidf_vectorizer_6000f.sav','rb'))
+abstarct_vectorizer = pickle.load(open('./abstract_tfidf_vectorizer_6000f.sav','rb'))
 
 
 def clean_transform_title_abstract(dataframe, title_vectorizer, abstarct_vectorizer):
