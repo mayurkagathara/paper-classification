@@ -33,8 +33,8 @@ voting_model_file = curr_dir+'/data/voting_model.sav'
 with open(voting_model_file, 'rb') as fread:
     clf_model_voting = pickle.load(fread)
 
-title_vectorizer = pickle.load(open(curr_dir+'data/title_tfidf_vectorizer_6000f.sav','rb'))
-abstarct_vectorizer = pickle.load(open(curr_dir+'data/abstract_tfidf_vectorizer_6000f.sav','rb'))
+title_vectorizer = pickle.load(open(curr_dir+'/data/title_tfidf_vectorizer_6000f.sav','rb'))
+abstarct_vectorizer = pickle.load(open(curr_dir+'/data/abstract_tfidf_vectorizer_6000f.sav','rb'))
 
 
 def clean_transform_title_abstract(dataframe, title_vectorizer, abstarct_vectorizer):
