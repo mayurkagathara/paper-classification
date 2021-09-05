@@ -18,7 +18,7 @@ from nltk.corpus import stopwords
 
 #%%
 import os
-curr_dir = print(os.getcwd())
+curr_dir = os.getcwd()
 
 #%%
 # Global variables/objects
